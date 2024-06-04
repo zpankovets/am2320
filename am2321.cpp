@@ -1,14 +1,9 @@
-#include <stdio.h>
-#include <sys/ioctl.h>
-#include <fcntl.h> 
-#include <linux/i2c-dev.h>
-#include <unistd.h>
-#include <stdint.h>
-
+#include "am2321.h"
 
 #define I2C_DEVICE "/dev/i2c-1"
 #define AM2321_ADDR 0x5C
 
+float temp, humi;
 
 static uint16_t 
 _calc_crc16(const uint8_t *buf, size_t len) {
@@ -32,7 +27,7 @@ _calc_crc16(const uint8_t *buf, size_t len) {
 static uint16_t
 _combine_bytes(uint8_t msb, uint8_t lsb)
 {
-  return ((uint16_t)msb << 8) | (uint16_t)lsb;
+  return (uint16_t)(((uint16_t)msb << 8) | (uint16_t)lsb);
 }
 
 int 
@@ -108,14 +103,13 @@ am2321(float *out_temperature, float *out_humidity)
   if (temp16 & 0x8000)
     temp16 = -(temp16 & 0x7FFF);
 
-  *out_temperature = (float)temp16 / 10.0;
-  *out_humidity = (float)humi16 / 10.0;
+  *out_temperature = (float)temp16 / (float)10.0;
+  *out_humidity = (float)humi16 / (float)10.0;
 
   return 0;
 }
 
-int main(void) {
-  float temp, humi;
+int get_sensor_data() {
 
   int ret = am2321(&temp, &humi);
   if (ret) {
@@ -123,8 +117,18 @@ int main(void) {
     return ret;
   }
 
-  printf( "Temperature %.1f [C]\n", temp);
-  printf( "Humidity    %.1f [%%]\n", humi);
+  //printf( "Temperature %.1f [C]\n", temp);
+  //printf( "Humidity    %.1f [%%]\n", humi);
   
   return 0;
+}
+
+int16_t get_temp()
+{
+    return (int16_t)temp;
+}
+
+uint8_t get_humi()
+{
+    return (uint8_t)humi;
 }
