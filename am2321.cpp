@@ -117,15 +117,15 @@ int get_sensor_data() {
     return ret;
   }
 
-  //printf( "Temperature %.1f [C]\n", temp);
-  //printf( "Humidity    %.1f [%%]\n", humi);
+ //printf( "Temperature %.1f [C]\n", temp);
+// printf( "Humidity    %.1f [%%]\n", humi);
   
   return 0;
 }
 
 int16_t get_temp()
 {
-    return (int16_t)temp;
+    return (int16_t)(100*temp);
 }
 
 uint8_t get_humi()
