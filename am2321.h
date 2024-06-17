@@ -7,7 +7,7 @@
 
 int get_sensor_data();
 int16_t get_temp();
-uint8_t get_humi();
+uint16_t get_humi();
 
 
 

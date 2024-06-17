@@ -128,7 +128,7 @@ int16_t get_temp()
     return (int16_t)(100*temp);
 }
 
-uint8_t get_humi()
+uint16_t get_humi()
 {
-    return (uint8_t)(100*humi);
+    return (uint16_t)(100*humi);
 }
