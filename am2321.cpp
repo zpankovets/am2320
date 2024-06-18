@@ -123,12 +123,12 @@ int get_sensor_data() {
   return 0;
 }
 
-int16_t get_temp()
+float get_temp()
 {
-    return (int16_t)(100*temp);
+    return temp;
 }
 
-uint16_t get_humi()
+float get_humi()
 {
-    return (uint16_t)(100*humi);
+    return humi;
 }

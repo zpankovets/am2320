@@ -6,8 +6,8 @@
 #include <stdint.h>
 
 int get_sensor_data();
-int16_t get_temp();
-uint16_t get_humi();
+float get_temp();
+float get_humi();
 
 
 
